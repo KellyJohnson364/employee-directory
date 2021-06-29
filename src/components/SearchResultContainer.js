@@ -1,56 +1,49 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
-import ResultTable from "./ResultTable";
+import { EmployeeTable, EmployeeList } from "./EmployeeTable";
 import API from "../utils/API";
 
-class SearchResultContainer extends Component {
-  state = {
-    search: "",
-    results: []
-  };
+function ResultContainer () {
+  const [employees, setEmployees] = useState([]);
+  const [employeeSearch, setEmployeeSearch] = useState("");
+  
+  useEffect(() => {
+      loadEmployees()
+  }, [])
 
-  // When this component mounts, search the Giphy API for pictures of kittens
-  componentDidMount() {
-    this.allEmployees();
-  }
-
-  allEmployees = () => {
-    API.getAllEmployees()
-      .then(res => this.setState({ results: res.data.data }))
+  async  function loadEmployees() {
+    await API.getEmployees()
+    .then(res => {
+      setEmployees(res.data.results)
+         console.log(res.data.results)
+      })
       .catch(err => console.log(err));
   };
-  searchEmployees = query => {
-    API.filterEmployees(query)
-      .then(res => this.setState({ results: res.data.data }))
-      .catch(err => console.log(err));
-  };
-
-  handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  // When the form is submitted, search the Giphy API for `this.state.search`
-  handleFormSubmit = event => {
-    event.preventDefault();
-    this.searchEmployees(this.state.search);
-  };
-
-  render() {
+   console.log(employees)
     return (
       <div>
-        <SearchForm
-          search={this.state.search}
-          handleFormSubmit={this.handleFormSubmit}
-          handleInputChange={this.handleInputChange}
-        />
-        <ResultTable results={this.state.results} />
-      </div>
+        {employees.length ? (
+          <EmployeeTable>
+            {employees.map(employee => (
+              <EmployeeList key={employee.id.value}
+              picture = {employee.picture.medium}
+              first = {employee.name.first}
+              last = {employee.name.last}
+              phone = {employee.phone}
+              number = {employee.location.street.number}
+              street = {employee.location.street.name}
+              city = {employee.location.city}
+               state = {employee.location.state}
+               zip = {employee.location.postcode}
+              />
+            ))}   
+          </EmployeeTable>   
+        ) : (
+          <h3> No Result to Display</h3>
+        )}
+      </div>    
     );
-  }
 }
 
-export default SearchResultContainer;
+
+export default ResultContainer;
