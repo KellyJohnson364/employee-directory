@@ -4,15 +4,18 @@ import { EmployeeTable, EmployeeList, TableHeader } from "./EmployeeTable";
 import API from "../utils/API";
 
 function ResultContainer () {
+
+  // set state 
   const [employees, setEmployees] = useState([]);
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
   const [direction, setDirection] = useState("⬇️");
-  
+  // Load employees when page loads
   useEffect(() => {
       loadEmployees()
   }, [])
 
+  // when search input is changed
   function handleInputChange(event) {
     event.preventDefault();
     setSearch(event.target.value)
@@ -20,20 +23,21 @@ function ResultContainer () {
   } 
   
 
-
+  // when search/return button is clicked
  function handleFormSubmit(event) {
     event.preventDefault();
   setResults(filterItems(employees, search)) 
-  setSearch("")
-  
+  setSearch("") 
  }
-    
+   
+  //find employees that include search term
   function filterItems(employees, search) {
     return employees.filter(function(employee) {
         return employee.name.last.toLowerCase().indexOf(search.toLowerCase()) !== -1 || employee.name.first.toLowerCase().indexOf(search.toLowerCase()) !== -1
     })
   }
-  
+
+  // fetch employees using axios route in API Utility
   async  function loadEmployees() {
     await API.getEmployees()
     .then(res => {
@@ -44,7 +48,7 @@ function ResultContainer () {
       .catch(err => console.log(err));
   };
 
-
+  // sort results in ascending or descending order and set Results to render
   function handleSort(event) {
     event.preventDefault();
     let unsorted = results
@@ -52,8 +56,8 @@ function ResultContainer () {
   
   }
 
+  // function to perform sort depending on state
   function sortEmployees (unsorted) {
-    
     if (direction == "⬇️") {
       setDirection("⬆️")
     return unsorted.sort((a, b) => (a.name.last > b.name.last) ? 1 :

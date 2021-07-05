@@ -1,6 +1,6 @@
 import React from "react";
-import API from "../utils/API";
 
+// Table for header and body
 export function EmployeeTable({children}) {
 
   return (  
@@ -9,7 +9,7 @@ export function EmployeeTable({children}) {
     </table>
   )}
     
-    
+//Table body for employee information   
 export function EmployeeList(props) {
   return (
     <tbody className="">
@@ -25,7 +25,7 @@ export function EmployeeList(props) {
           )
      
 }
-
+// Header with sort button 
 export function TableHeader(props) {
   return (
     <thead>

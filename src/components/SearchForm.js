@@ -1,5 +1,7 @@
 import React from "react";
 
+
+// Search form to collect searchterm for last or first name
 function SearchForm(props) {
   return (
     <form className="m-4">
