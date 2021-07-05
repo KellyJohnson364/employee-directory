@@ -6,16 +6,17 @@ function SearchForm(props) {
       <div className="form-group">
         <label htmlFor="search">Search:</label>
         <input
-          onChange={props.handleInputChange}
-          value={props.search}
+          onChange={props.onChange}
+          value={props.value}
           name="search"
           type="text"
           className="form-control"
-          placeholder="Search for a Nationality"
+          placeholder="Search by State"
           id="search"
         />
-        <button onClick={props.handleFormSubmit} className="btn btn-primary mt-3">
-          Search
+        <br />
+        <button onClick={props.onClick} className="btn btn-primary">
+          {props.button}
         </button>
       </div>
     </form>
@@ -23,3 +24,4 @@ function SearchForm(props) {
 }
 
 export default SearchForm;
+
