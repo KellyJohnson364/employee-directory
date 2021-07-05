@@ -12,7 +12,7 @@ export function EmployeeTable({children}) {
     
 export function EmployeeList(props) {
   return (
-    <tbody>
+    <tbody className="table-striped">
      <tr>
          <th scope="row">{props.id}</th>
          <td><img src={props.picture}/></td>
@@ -32,12 +32,10 @@ export function TableHeader(props) {
           <tr>
             <th></th>
             <th scope="col">Picture</th>
-            <th 
-            onClick={props.onClick}
-            scope="col">First</th>
-            <th 
-            onClick={props.onClick}
-            scope="col">Last</th>
+            <th scope="col">First</th>
+            <th>
+              <button onClick={props.sortLast} scope="col-4">Last <span>{props.direction}</span></button>
+            </th>
             <th scope="col">Phone</th>
             <th scope="col">Address</th>
           </tr>

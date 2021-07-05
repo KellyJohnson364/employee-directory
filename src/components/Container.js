@@ -7,7 +7,7 @@ function ResultContainer () {
   const [employees, setEmployees] = useState([]);
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
-  const [button, setButton] = useState("Search");
+  const [direction, setDirection] = useState("⬇️");
   
   useEffect(() => {
       loadEmployees()
@@ -16,7 +16,7 @@ function ResultContainer () {
   function handleInputChange(event) {
     event.preventDefault();
     setSearch(event.target.value)
-    console.log(event.target.value)
+  //  console.log(event.target.value)
   } 
   
 
@@ -24,26 +24,16 @@ function ResultContainer () {
  function handleFormSubmit(event) {
     event.preventDefault();
   setResults(filterItems(employees, search)) 
-  console.log(filterItems(employees, search))
   setSearch("")
-    if (button === "Search") {
-      setButton("Return to Results")
-    } else {
-      setButton("Search")
-    }
-  };
+  
+ }
     
   function filterItems(employees, search) {
     return employees.filter(function(employee) {
-        return employee.location.state.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        return employee.name.last.toLowerCase().indexOf(search.toLowerCase()) !== -1 || employee.name.first.toLowerCase().indexOf(search.toLowerCase()) !== -1
     })
   }
   
-  function handleSort(event) {
-    event.preventDefault(); 
-    console.log("sort it!!")
-  }
-
   async  function loadEmployees() {
     await API.getEmployees()
     .then(res => {
@@ -53,21 +43,45 @@ function ResultContainer () {
       })
       .catch(err => console.log(err));
   };
-  console.log(results)
+
+
+  function handleSort(event) {
+    event.preventDefault();
+    let unsorted = results
+    setResults(sortEmployees(unsorted))
   
+  }
+
+  function sortEmployees (unsorted) {
+    
+    if (direction == "⬇️") {
+      setDirection("⬆️")
+    return unsorted.sort((a, b) => (a.name.last > b.name.last) ? 1 :
+     (a.name.last === b.name.last) ? ((a.name.first > b.name.first) ? 1 
+     : -1) : -1 )
+    } else {
+      setDirection("⬇️")
+      return unsorted.reverse()
+    }
+
+  }
+
+
     return (
-     
+    
       <div>
+        <h2 className="text-center">Employee Directory</h2>
         <SearchForm 
         value = {search}
         onChange={handleInputChange}
         onClick={handleFormSubmit}
-        button={button}
+       
        /> 
         {results.length ? (
           <EmployeeTable>
             <TableHeader
-            onclick= {handleSort}/>
+            direction={direction}
+            sortLast= {handleSort}/>
             {results.map(employee => (
               <EmployeeList key={employee.id.value}
               picture = {employee.picture.medium}

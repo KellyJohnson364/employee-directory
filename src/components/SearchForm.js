@@ -2,7 +2,7 @@ import React from "react";
 
 function SearchForm(props) {
   return (
-    <form>
+    <form className="m-4">
       <div className="form-group">
         <label htmlFor="search">Search:</label>
         <input
@@ -11,12 +11,12 @@ function SearchForm(props) {
           name="search"
           type="text"
           className="form-control"
-          placeholder="Search by State"
+          placeholder="Search by first or last Name"
           id="search"
         />
         <br />
         <button onClick={props.onClick} className="btn btn-primary">
-          {props.button}
+         Search/Return
         </button>
       </div>
     </form>
