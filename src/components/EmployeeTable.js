@@ -4,7 +4,7 @@ import API from "../utils/API";
 export function EmployeeTable({children}) {
 
   return (  
-    <table className="m-4 table-border rounded  table table-striped"> 
+    <table className="m-4 table-border rounded bg-light table table-striped"> 
         {children}
     </table>
   )}
