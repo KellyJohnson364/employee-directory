@@ -4,7 +4,7 @@ import API from "../utils/API";
 export function EmployeeTable({children}) {
 
   return (  
-    <table className="table table-border table-striped"> 
+    <table className="m-4 table-border rounded  table table-striped"> 
         {children}
     </table>
   )}
@@ -12,7 +12,7 @@ export function EmployeeTable({children}) {
     
 export function EmployeeList(props) {
   return (
-    <tbody className="table-striped">
+    <tbody className="">
      <tr>
          <th scope="row">{props.id}</th>
          <td><img src={props.picture}/></td>

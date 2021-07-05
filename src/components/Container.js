@@ -69,7 +69,7 @@ function ResultContainer () {
 
     return (
     
-      <div>
+      <div className="bg-dark text-white">
         <h2 className="text-center">Employee Directory</h2>
         <SearchForm 
         value = {search}
