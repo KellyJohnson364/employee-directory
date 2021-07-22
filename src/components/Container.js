@@ -74,7 +74,7 @@ function ResultContainer () {
     return (
     
       <div className="bg-dark text-white">
-        <h2 className="text-center">Employee Directory</h2>
+        <h2 className="text-center p-5">Employee Directory</h2>
         <SearchForm 
         value = {search}
         onChange={handleInputChange}
