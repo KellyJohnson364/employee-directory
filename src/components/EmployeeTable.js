@@ -4,7 +4,7 @@ import React from "react";
 export function EmployeeTable({children}) {
 
   return (  
-    <table className="m-4 table-border rounded bg-light table table-striped"> 
+    <table className="m-4 table-responsive table-border rounded bg-light table table-striped"> 
         {children}
     </table>
   )}
